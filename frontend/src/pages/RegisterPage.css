@@ -1,0 +1,107 @@
+/* Styles for RegisterPage, largely similar to LoginPage for consistency */
+.auth-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 20px;
+  box-sizing: border-box; /* Ensures padding doesn't add to the total width/height */
+}
+
+.auth-page h2 {
+  margin-bottom: 2rem;
+  text-align: center;
+  color: #333; /* Darker text for heading */
+}
+
+.auth-page form {
+  background: #fff;
+  padding: 2rem; /* Increased padding */
+  border-radius: 8px; /* Rounded corners */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15); /* More prominent shadow */
+  width: 100%;
+  max-width: 400px; /* Max width for the form container */
+  box-sizing: border-box;
+}
+
+.auth-page form div {
+  margin-bottom: 1.5rem; /* Increased spacing between form elements */
+}
+
+/* Last div (button) should not have bottom margin */
+.auth-page form div:last-child {
+  margin-bottom: 0;
+}
+
+.auth-page form label {
+  display: block;
+  margin-bottom: 0.5rem; /* Space between label and input */
+  color: #555; /* Slightly lighter label color */
+  font-weight: bold;
+}
+
+.auth-page form input[type="text"],
+.auth-page form input[type="email"],
+.auth-page form input[type="password"] {
+  width: 100%;
+  padding: 0.75rem 1rem; /* Adjusted padding for input fields */
+  border: 1px solid #ccc;
+  border-radius: 4px; /* Rounded corners for inputs */
+  box-sizing: border-box; /* Ensures padding/border doesn't add to width */
+  font-size: 1rem; /* Consistent font size */
+}
+
+.auth-page form input[type="text"]:focus,
+.auth-page form input[type="email"]:focus,
+.auth-page form input[type="password"]:focus {
+  border-color: #007bff; /* Highlight focus */
+  outline: none; /* Remove default outline */
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25); /* Focus shadow */
+}
+
+.auth-page form button[type="submit"] {
+  width: 100%;
+  padding: 0.75rem 1rem; /* Consistent padding with inputs */
+  background-color: #28a745; /* Success/Register button color (green) */
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: bold;
+  transition: background-color 0.2s ease-in-out; /* Smooth transition */
+}
+
+.auth-page form button[type="submit"]:hover {
+  background-color: #218838; /* Darker shade of green on hover */
+}
+
+.auth-page form button[type="submit"]:disabled {
+  background-color: #ccc; /* Disabled state */
+  cursor: not-allowed;
+}
+
+/* Message Styling */
+.form-message {
+  width: 100%;
+  max-width: 400px; /* Consistent with form width */
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border-radius: 4px;
+  text-align: center;
+  font-size: 0.9rem;
+  box-sizing: border-box;
+}
+
+.error-message {
+  background-color: #f8d7da; /* Light red background */
+  color: #721c24; /* Dark red text */
+  border: 1px solid #f5c6cb; /* Red border */
+}
+
+.success-message {
+  background-color: #d4edda; /* Light green background */
+  color: #155724; /* Dark green text */
+  border: 1px solid #c3e6cb; /* Green border */
+}
