@@ -18,7 +18,10 @@ const workoutLogRoutes = require('./src/routes/workoutLogRoutes');
 const app = express();
 
 // Connect to Database
-connectDB();
+connectDB().catch(err => {
+  console.error("Failed to connect to database:", err);
+  process.exit(1); // Exit the process if database connection fails
+});
 
 // Middleware
 app.use(cors()); // Enable CORS for all routes
@@ -34,11 +37,11 @@ app.get('/', (req, res) => {
 app.use('/api/characters', characterRoutes);
 app.use('/api/combat', combatRoutes);
 app.use('/api/dailysummary', dailySummaryRoutes);
-app.use('/api/dietlog', dietLogRoutes);
+app.use('/api/dietlogs', dietLogRoutes);
 app.use('/api/exercises', exerciseRoutes);
 app.use('/api/foods', foodRoutes);
 app.use('/api/users', userRoutes);
-app.use('/api/workoutlog', workoutLogRoutes);
+app.use('/api/workoutlogs', workoutLogRoutes);
 
 
 // Define Port

@@ -2,6 +2,7 @@
 
 const DietLog = require('../models/dietLog');
 const Food = require('../models/food');
+const { updateCharacterProgression } = require('../services/characterService');
 
 // @desc    Create new diet log
 // @route   POST /api/dietlogs
@@ -44,7 +45,13 @@ const createDietLog = async (req, res) => {
 
 
     // Call the character progression service
-    await updateCharacterProgression(user_id, dietLog);
+    // Ensure updateCharacterProgression has its own error handling
+    // so it doesn't crash this main request if it fails.
+    if (updateCharacterProgression) { // Check if the function is imported correctly
+        await updateCharacterProgression(user_id, dietLog);
+    } else {
+        console.warn("updateCharacterProgression function not available or not imported correctly.");
+    }
 
     res.status(201).json(dietLog);
 
@@ -58,7 +65,8 @@ const createDietLog = async (req, res) => {
 // @access  Private (will add authentication middleware later)
 const getDietLogs = async (req, res) => {
     try {
-        const user_id = req.params.userId; // Or req.user.id from middleware
+        // Use userId from params if available, otherwise use authenticated user's ID
+        const user_id = req.params.userId || req.user.id;
 
         const dietLogs = await DietLog.find({ user_id }).populate('food_id'); // Populate to get food details
 

@@ -5,7 +5,11 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "seed": "node src/database/seeders/masterSeeder.js",
+    "seed:foods": "node src/database/seeders/foodSeeder.js",
+    "seed:exercises": "node src/database/seeders/exerciseSeeder.js",
+    "populate": "node populateDatabase.js"
   },
   "dependencies": {
     "bcrypt": "^6.0.0",

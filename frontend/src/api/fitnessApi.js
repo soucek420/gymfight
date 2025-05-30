@@ -2,6 +2,9 @@
 import axios from 'axios';
 import { handleApiError } from './apiErrorUtils';
 
+// Set the base URL for API requests
+axios.defaults.baseURL = 'http://localhost:5001';
+
 const API_URL_EXERCISES = '/api/exercises';
 const API_URL_WORKOUT_LOGS = '/api/workoutlogs';
 const API_URL_DIET_LOGS = '/api/dietlogs';
@@ -131,6 +134,36 @@ const getCustomFoods = async (token) => {
     }
 };
 
+// Function to get workout logs for a user
+const getWorkoutLogs = async (token) => {
+    try {
+        const config = {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        };
+        const response = await axios.get(`${API_URL_WORKOUT_LOGS}/user`, config);
+        return response.data;
+    } catch (err) {
+        handleApiError(err);
+    }
+};
+
+// Function to get diet logs for a user
+const getDietLogs = async (token) => {
+    try {
+        const config = {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        };
+        const response = await axios.get(`${API_URL_DIET_LOGS}/user`, config);
+        return response.data;
+    } catch (err) {
+        handleApiError(err);
+    }
+};
+
 const fitnessApi = {
     getExercises,
     createWorkoutLog,
@@ -140,7 +173,9 @@ const fitnessApi = {
     createCustomExercise,
     getCustomExercises,
     createCustomFood,
-    getCustomFoods
+    getCustomFoods,
+    getWorkoutLogs,
+    getDietLogs
 };
 
 export default fitnessApi;

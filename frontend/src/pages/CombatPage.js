@@ -43,23 +43,6 @@ function CombatPage() {
         fetchCharacter();
     }, [user]);
 
-    // Helper to parse names and initial HP from the first log entry
-    const parseInitialCombatState = (logEntry) => {
-        if (typeof logEntry !== 'string') return { pName: "Player", pHP: 100, oName: "Opponent", oHP: 100 };
-        
-        // Example: "Battle starts: PlayerName (HP: 100) vs OpponentName (HP: 50)"
-        const match = logEntry.match(/Battle starts: (.*) \(HP: (\d+)\) vs (.*) \(HP: (\d+)\)/);
-        if (match) {
-            return {
-                pName: match[1],
-                pHP: parseInt(match[2], 10),
-                oName: match[3],
-                oHP: parseInt(match[4], 10),
-            };
-        }
-        return { pName: playerCharacter?.name || "Player", pHP: playerCharacter?.stats.health_points || 100, oName: "Opponent", oHP: 100 };
-    };
-    
     // Combat Initiation
     const handleOpponentSelect = async (aiOpponentId) => {
         if (!playerCharacter) {
@@ -99,8 +82,7 @@ function CombatPage() {
 
             if (result.combatLog && result.combatLog.length > 0) {
                 const firstLog = result.combatLog[0];
-                // The parseInitialCombatState might still be useful for the player's name/HP from log if needed,
-                // but opponent's initial HP and name should ideally come from opponentDetails.
+                // Opponent's initial HP and name come from opponentDetails.
                 // We update initialOpponentHp and parsedOpponentName above from opponentDetails.
                 // The first log entry is displayed.
                 setDisplayedLogEntries([formatLogEntry(firstLog, parsedOpponentName, playerCharacter.name)]);

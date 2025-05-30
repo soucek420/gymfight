@@ -21,6 +21,7 @@ function WorkoutLog() {
   const { exercise_id, date, duration, sets, reps, weight } = formData;
 
   useEffect(() => {
+    console.log('WorkoutLog useEffect running. User:', user); // Added log
     const fetchExercises = async () => {
       if (!user || !user.token) {
         // Don't fetch if user is not available yet
