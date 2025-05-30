@@ -42,7 +42,7 @@ function DietLog() {
 
       } catch (error) {
         console.error('Error fetching foods:', error);
-        setMessage('Error fetching food items. Please try again later.');
+        setMessage(error.message || 'Error fetching food items. Please try again later.');
         setFoods([]);
       } finally {
         setIsLoadingFoods(false);
@@ -101,7 +101,7 @@ function DietLog() {
       });
     } catch (error) {
       console.error('Error creating diet log:', error);
-      setMessage(error.response?.data?.message || 'Error creating diet log. Please check your input and try again.');
+      setMessage(error.message || 'Error creating diet log. Please check your input and try again.');
     }
   };
 
