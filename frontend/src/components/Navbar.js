@@ -23,12 +23,12 @@ function Navbar() {
               <Link to="/dashboard">Dashboard</Link>
             </li>
             {/* Add links to other protected pages here later */}
-            {/*
+            
             <li><Link to="/fitness">Fitness</Link></li>
             <li><Link to="/rpg">RPG</Link></li>
             <li><Link to="/combat">Combat</Link></li>
-            <li><Link to="/profile">Profile</Link></li>
-            */}
+            {/* <li><Link to="/profile">Profile</Link></li> */}
+            
             <li>
               <button onClick={handleLogout}>Logout</button>
             </li>

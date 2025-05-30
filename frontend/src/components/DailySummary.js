@@ -10,11 +10,14 @@ function DailySummary() {
   const [error, setError] = useState(null);
   const { user } = useAuth();
   // TODO: Implement date selection. For now, defaulting to today.
+  // eslint-disable-next-line no-unused-vars
   const [selectedDate, setSelectedDate] = useState(new Date().toISOString().split('T')[0]); // YYYY-MM-DD format
+
+  const userToken = user?.token; // Extract user token to a variable
 
   useEffect(() => {
     const fetchDailySummary = async () => {
-      if (!user || !user.token) {
+      if (!user || !userToken) { // Use userToken here
         setError('User not authenticated.');
         setLoading(false);
         return;
@@ -23,7 +26,7 @@ function DailySummary() {
       setLoading(true);
       setError(null);
       try {
-        const data = await fitnessApi.getDailySummary(selectedDate, user.token);
+        const data = await fitnessApi.getDailySummary(selectedDate, userToken); // Use userToken here
         setSummaryData(data);
       } catch (err) {
         console.error('Error fetching daily summary:', err);
@@ -34,8 +37,8 @@ function DailySummary() {
     };
 
     fetchDailySummary();
-    // Refetch when selectedDate or user.token changes
-  }, [selectedDate, user ? user.token : null]); // Depend on selectedDate and user token
+    // Refetch when selectedDate or userToken changes
+  }, [selectedDate, user, userToken]); // Depend on selectedDate, user, and userToken
 
   // TODO: Add date picker functionality to change selectedDate state
 

@@ -79,8 +79,8 @@ const getCharacter = async (req, res) => {
         res.status(200).json(character);
 
     } catch (error) {
-        console.error(error);
-        res.status(500).json({ message: 'Server Error' });
+        console.error('Error fetching character data:', error);
+        res.status(500).json({ message: 'Server Error fetching character data', error: error.message }); // Include error message in response
     }
 };
 

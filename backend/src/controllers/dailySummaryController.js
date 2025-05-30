@@ -68,8 +68,8 @@ const getDailySummary = async (req, res) => {
     });
 
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: 'Server Error' });
+    console.error('Error fetching daily summary:', error);
+    res.status(500).json({ message: 'Server Error', error: error.message }); // Include error message in response
   }
 };
 

@@ -19,7 +19,6 @@ function CombatPage() {
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(null);
     const [combatStarted, setCombatStarted] = useState(false);
-    const [selectedOpponentId, setSelectedOpponentId] = useState(null);
 
 
     // Fetch Player Character
@@ -67,7 +66,6 @@ function CombatPage() {
             setError("Player character data not loaded yet.");
             return;
         }
-        setSelectedOpponentId(aiOpponentId);
         setIsLoading(true);
         setError(null);
         setCombatStarted(true);
@@ -250,11 +248,10 @@ function CombatPage() {
                     </div>
                 )}
                 <button onClick={() => {
-                    setCombatStarted(false);
-                    setCombatResult(null);
-                    setSelectedOpponentId(null); // Allow selecting a new opponent
-                    setDisplayedLogEntries([]);
-                    setCurrentTurnIndex(0);
+                setCombatStarted(false);
+                setCombatResult(null);
+                setDisplayedLogEntries([]);
+                setCurrentTurnIndex(0);
                     // Reset HPs to full for player for next potential fight
                     if(playerCharacter) setPlayerCurrentHp(playerCharacter.stats.health_points);
                     setOpponentCurrentHp(0); 

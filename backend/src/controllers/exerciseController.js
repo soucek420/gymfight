@@ -11,8 +11,8 @@ const getExercises = async (req, res) => {
     const exercises = await Exercise.find({ isCustom: false, user_id: null });
     res.status(200).json(exercises);
   } catch (error) {
-    console.error(error.message);
-    res.status(500).json({ message: 'Server Error fetching global exercises' });
+    console.error('Error fetching global exercises:', error);
+    res.status(500).json({ message: 'Server Error fetching global exercises', error: error.message }); // Include error message in response
   }
 };
 
@@ -46,8 +46,8 @@ const createExercise = async (req, res) => {
 
         res.status(201).json(exercise);
     } catch (error) {
-        console.error(error.message);
-        res.status(500).json({ message: 'Server Error creating global exercise' });
+        console.error('Error creating global exercise:', error);
+        res.status(500).json({ message: 'Server Error creating global exercise', error: error.message }); // Include error message in response
     }
 };
 
@@ -82,8 +82,8 @@ const createCustomExercise = async (req, res) => {
 
         res.status(201).json(customExercise);
     } catch (error) {
-        console.error(error.message);
-        res.status(500).json({ message: 'Server Error creating custom exercise' });
+        console.error('Error creating custom exercise:', error);
+        res.status(500).json({ message: 'Server Error creating custom exercise', error: error.message }); // Include error message in response
     }
 };
 
@@ -95,8 +95,8 @@ const getCustomExercises = async (req, res) => {
         const customExercises = await Exercise.find({ user_id: req.user.id, isCustom: true });
         res.status(200).json(customExercises);
     } catch (error) {
-        console.error(error.message);
-        res.status(500).json({ message: 'Server Error fetching custom exercises' });
+        console.error('Error fetching custom exercises:', error);
+        res.status(500).json({ message: 'Server Error fetching custom exercises', error: error.message }); // Include error message in response
     }
 };
 

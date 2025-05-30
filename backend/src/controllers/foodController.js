@@ -11,8 +11,8 @@ const getFoods = async (req, res) => {
     const foods = await Food.find({ isCustom: false, user_id: null });
     res.status(200).json(foods);
   } catch (error) {
-    console.error(error.message);
-    res.status(500).json({ message: 'Server Error fetching global food items' });
+    console.error('Error fetching global food items:', error);
+    res.status(500).json({ message: 'Server Error fetching global food items', error: error.message }); // Include error message in response
   }
 };
 
@@ -46,8 +46,8 @@ const createFood = async (req, res) => {
 
         res.status(201).json(food);
     } catch (error) {
-        console.error(error.message);
-        res.status(500).json({ message: 'Server Error creating global food item' });
+        console.error('Error creating global food item:', error);
+        res.status(500).json({ message: 'Server Error creating global food item', error: error.message }); // Include error message in response
     }
 };
 
@@ -77,8 +77,8 @@ const createCustomFood = async (req, res) => {
 
         res.status(201).json(customFood);
     } catch (error) {
-        console.error(error.message);
-        res.status(500).json({ message: 'Server Error creating custom food item' });
+        console.error('Error creating custom food item:', error);
+        res.status(500).json({ message: 'Server Error creating custom food item', error: error.message }); // Include error message in response
     }
 };
 
@@ -90,8 +90,8 @@ const getCustomFoods = async (req, res) => {
         const customFoods = await Food.find({ user_id: req.user.id, isCustom: true });
         res.status(200).json(customFoods);
     } catch (error) {
-        console.error(error.message);
-        res.status(500).json({ message: 'Server Error fetching custom food items' });
+        console.error('Error fetching custom food items:', error);
+        res.status(500).json({ message: 'Server Error fetching custom food items', error: error.message }); // Include error message in response
     }
 };
 
