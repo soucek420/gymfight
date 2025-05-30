@@ -15,7 +15,9 @@ const registerUser = async (req, res) => {
     if (!username) { return res.status(400).json({ message: 'Username is required.' }); }
     if (!email) { return res.status(400).json({ message: 'Email is required.' }); }
     if (!password) { return res.status(400).json({ message: 'Password is required.' }); }
-    if (password.length < 6) { return res.status(400).json({ message: 'Password must be at least 6 characters long.' }); }
+    if (password.length < 8) { return res.status(400).json({ message: 'Password must be at least 8 characters long.' }); } // Updated length
+    const uppercaseRegex = /[A-Z]/;
+    if (!uppercaseRegex.test(password)) { return res.status(400).json({ message: 'Password must contain at least one uppercase letter.' }); } // New check
     const emailRegex = /\S+@\S+\.\S+/;
     if (!emailRegex.test(email)) { return res.status(400).json({ message: 'Please enter a valid email address.' }); }
 
