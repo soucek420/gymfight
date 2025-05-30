@@ -20,24 +20,32 @@ const getExercises = async () => {
 
 // Function to create a new workout log
 const createWorkoutLog = async (workoutData, token) => {
-    const config = {
-        headers: {
-            Authorization: `Bearer ${token}`,
-        },
-    };
-    const response = await axios.post(API_URL_WORKOUT_LOGS, workoutData, config);
-    return response.data;
+    try {
+        const config = {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        };
+        const response = await axios.post(API_URL_WORKOUT_LOGS, workoutData, config);
+        return response.data;
+    } catch (err) {
+        handleApiError(err);
+    }
 };
 
 // Function to create a new diet log
 const createDietLog = async (dietData, token) => {
-    const config = {
-        headers: {
-            Authorization: `Bearer ${token}`,
-        },
-    };
-    const response = await axios.post(API_URL_DIET_LOGS, dietData, config);
-    return response.data;
+    try {
+        const config = {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        };
+        const response = await axios.post(API_URL_DIET_LOGS, dietData, config);
+        return response.data;
+    } catch (err) {
+        handleApiError(err);
+    }
 };
 
 // Function to get all GLOBAL food items
@@ -67,13 +75,17 @@ const getDailySummary = async (date, token) => {
 
 // --- Custom Exercise Functions ---
 const createCustomExercise = async (exerciseData, token) => {
-    const config = {
-        headers: {
-            Authorization: `Bearer ${token}`,
-        },
-    };
-    const response = await axios.post(`${API_URL_EXERCISES}/custom`, exerciseData, config);
-    return response.data;
+    try {
+        const config = {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        };
+        const response = await axios.post(`${API_URL_EXERCISES}/custom`, exerciseData, config);
+        return response.data;
+    } catch (err) {
+        handleApiError(err);
+    }
 };
 
 const getCustomExercises = async (token) => {
@@ -92,13 +104,17 @@ const getCustomExercises = async (token) => {
 
 // --- Custom Food Functions ---
 const createCustomFood = async (foodData, token) => {
-    const config = {
-        headers: {
-            Authorization: `Bearer ${token}`,
-        },
-    };
-    const response = await axios.post(`${API_URL_FOODS}/custom`, foodData, config);
-    return response.data;
+    try {
+        const config = {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        };
+        const response = await axios.post(`${API_URL_FOODS}/custom`, foodData, config);
+        return response.data;
+    } catch (err) {
+        handleApiError(err);
+    }
 };
 
 const getCustomFoods = async (token) => {

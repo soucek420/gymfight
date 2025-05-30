@@ -22,13 +22,17 @@ const getCharacter = async (token, userId) => {
 
 // Function to create a new character
 const createCharacter = async (characterData, token) => {
-    const config = {
-        headers: {
-            Authorization: `Bearer ${token}`,
-        },
-    };
-    const response = await axios.post(API_URL_CHARACTERS, characterData, config);
-    return response.data;
+    try {
+        const config = {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        };
+        const response = await axios.post(API_URL_CHARACTERS, characterData, config);
+        return response.data;
+    } catch (err) {
+        handleApiError(err);
+    }
 };
 
 const getAiOpponents = async (token) => {

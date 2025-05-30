@@ -34,7 +34,7 @@ function CombatPage() {
                     setError(null);
                 } catch (err) {
                     console.error('Error fetching character:', err);
-                    setError(err.response?.data?.message || 'Failed to fetch character data. Please try again.');
+                    setError(err.message || 'Failed to fetch character data. Please try again.');
                 } finally {
                     setIsLoading(false);
                 }
@@ -113,7 +113,7 @@ function CombatPage() {
 
         } catch (err) {
             console.error('Error starting combat:', err);
-            setError(err.response?.data?.message || 'Failed to start combat.');
+            setError(err.message || 'Failed to start combat.');
             setCombatStarted(false);
         } finally {
             setIsLoading(false);

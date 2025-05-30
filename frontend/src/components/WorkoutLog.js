@@ -46,7 +46,7 @@ function WorkoutLog() {
 
       } catch (error) {
         console.error('Error fetching exercises:', error);
-        setMessage('Error fetching exercises. Please try again later.');
+        setMessage(error.message || 'Error fetching exercises. Please try again later.');
         setExercises([]); // Clear exercises on error
       } finally {
         setIsLoadingExercises(false);
@@ -107,7 +107,7 @@ function WorkoutLog() {
       });
     } catch (error) {
       console.error('Error creating workout log:', error);
-      setMessage(error.response?.data?.message || 'Error creating workout log. Please check your input and try again.');
+      setMessage(error.message || 'Error creating workout log. Please check your input and try again.');
     }
   };
 
