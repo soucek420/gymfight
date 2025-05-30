@@ -28,8 +28,8 @@ function RPGPage() {
         const data = await rpgApi.getCharacter(user.token, user._id);
         setCharacter(data);
       } catch (err) {
-        console.error('Error fetching character:', err);
-        setError(err.response?.data?.message || 'Failed to fetch character. Please try again.');
+        console.error('Processed error fetching character:', err);
+        setError(err.message || 'Failed to fetch character. Please try again.');
         setCharacter(null); // Clear character on error
       } finally {
         setLoading(false);

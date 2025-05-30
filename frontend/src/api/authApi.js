@@ -1,24 +1,30 @@
 // frontend/src/api/authApi.js
 
 import axios from 'axios';
+import { handleApiError } from './apiErrorUtils';
 
-const API_URL = 'http://localhost:5001/api/users'; // Your backend API base URL for user routes
+const API_URL = '/api/users'; // Your backend API base URL for user routes
 
 // Register user
 const register = async (userData) => {
-  const response = await axios.post(`${API_URL}/`, userData);
+  try {
+    const response = await axios.post(`${API_URL}/`, userData);
 
-  // Assuming the backend sends back user data upon successful registration
-  if (response.data) {
-    // Depending on your authentication flow, you might store the token here
-    // localStorage.setItem('user', JSON.stringify(response.data));
+    // Assuming the backend sends back user data upon successful registration
+    if (response.data) {
+      // Depending on your authentication flow, you might store the token here
+      // localStorage.setItem('user', JSON.stringify(response.data));
+    }
+
+    return response.data;
+  } catch (err) {
+    handleApiError(err);
   }
-
-  return response.data;
 };
 
 // Login user
 const login = async (userData) => {
+  try {
     const response = await axios.post(`${API_URL}/login`, userData);
 
     if (response.data) {
@@ -27,6 +33,9 @@ const login = async (userData) => {
     }
 
     return response.data;
+  } catch (err) {
+    handleApiError(err);
+  }
 };
 
 // Logout user

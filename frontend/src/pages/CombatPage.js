@@ -78,37 +78,35 @@ function CombatPage() {
             setCombatResult(result);
             
             let initialPlayerHp = playerCharacter.stats.health_points;
-            let initialOpponentHp = 100; // Default
-            let parsedOpponentName = "Opponent"; // Default
-            let opponentLevel = 1; // Default
-            let opponentType = "Unknown"; // Default
+            // Opponent details will now be primarily sourced from result.opponentDetails
+            let initialOpponentHp = 100;
+            let parsedOpponentName = "Opponent";
+            let opponentLevel = 1;
+            let opponentType = "Unknown";
+
+            if (result.opponentDetails) {
+                parsedOpponentName = result.opponentDetails.name || parsedOpponentName;
+                initialOpponentHp = result.opponentDetails.stats?.health_points || initialOpponentHp;
+                opponentLevel = result.opponentDetails.level || opponentLevel;
+                opponentType = result.opponentDetails.type || opponentType;
+            } else if (result.aiOpponent) { // Fallback if structure is slightly different e.g. result.aiOpponent
+                parsedOpponentName = result.aiOpponent.name || parsedOpponentName;
+                initialOpponentHp = result.aiOpponent.stats?.health_points || initialOpponentHp;
+                opponentLevel = result.aiOpponent.level || opponentLevel;
+                opponentType = result.aiOpponent.type || opponentType;
+            }
+
 
             if (result.combatLog && result.combatLog.length > 0) {
                 const firstLog = result.combatLog[0];
-                const initialState = parseInitialCombatState(firstLog);
-                
-                // Use playerCharacter data as the source of truth for player's initial HP
-                initialPlayerHp = playerCharacter.stats.health_points; 
-                parsedOpponentName = initialState.oName;
-                initialOpponentHp = initialState.oHP;
-
+                // The parseInitialCombatState might still be useful for the player's name/HP from log if needed,
+                // but opponent's initial HP and name should ideally come from opponentDetails.
+                // We update initialOpponentHp and parsedOpponentName above from opponentDetails.
+                // The first log entry is displayed.
                 setDisplayedLogEntries([formatLogEntry(firstLog, parsedOpponentName, playerCharacter.name)]);
                 setCurrentTurnIndex(1);
             }
             
-            // Attempt to get more concrete opponent details if backend sends them
-            // This is a fallback if the backend doesn't send opponent details directly in the combat result.
-            // Ideally, backend `startCombat` response should include `opponentDetails` { name, level, type, stats: { health_points } }
-            // For now, we rely on parsing and defaults.
-            const fetchedOpponent = await rpgApi.getAiOpponent(aiOpponentId, user.token); // Assuming such an API exists or is added.
-            if (fetchedOpponent) {
-                parsedOpponentName = fetchedOpponent.name || parsedOpponentName;
-                initialOpponentHp = fetchedOpponent.stats?.health_points || initialOpponentHp;
-                opponentLevel = fetchedOpponent.level || opponentLevel;
-                opponentType = fetchedOpponent.type || opponentType;
-            }
-
-
             setPlayerCurrentHp(initialPlayerHp);
             setOpponentDetails({ name: parsedOpponentName, level: opponentLevel, initialHealth: initialOpponentHp, type: opponentType });
             setOpponentCurrentHp(initialOpponentHp);

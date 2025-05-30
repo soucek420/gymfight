@@ -29,8 +29,8 @@ function DailySummary() {
         const data = await fitnessApi.getDailySummary(selectedDate, userToken); // Use userToken here
         setSummaryData(data);
       } catch (err) {
-        console.error('Error fetching daily summary:', err);
-        setError('Failed to fetch daily summary. Please try again.');
+        console.error('Processed error fetching daily summary:', err);
+        setError(err.message || 'Failed to fetch daily summary. Please try again.');
       } finally {
         setLoading(false);
       }
