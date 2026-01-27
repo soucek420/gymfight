@@ -27,6 +27,16 @@ connectDB().catch(err => {
 app.use(cors()); // Enable CORS for all routes
 app.use(express.json()); // To parse JSON request bodies
 
+// Health check endpoint
+app.get('/health', (req, res) => {
+  res.status(200).json({
+    status: 'healthy',
+    timestamp: new Date().toISOString(),
+    uptime: process.uptime(),
+    environment: process.env.NODE_ENV || 'development'
+  });
+});
+
 // Basic Route to check if server is running
 app.get('/', (req, res) => {
   res.send('Gym Fight Backend API is running...');
@@ -43,6 +53,23 @@ app.use('/api/foods', foodRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/workoutlogs', workoutLogRoutes);
 
+// 404 handler - must be after all routes
+app.use((req, res) => {
+  res.status(404).json({
+    error: 'Not Found',
+    message: `Cannot ${req.method} ${req.path}`,
+    path: req.path
+  });
+});
+
+// Global error handler
+app.use((err, req, res, next) => {
+  console.error('Error:', err);
+  res.status(err.status || 500).json({
+    error: err.message || 'Internal Server Error',
+    ...(process.env.NODE_ENV === 'development' && { stack: err.stack })
+  });
+});
 
 // Define Port
 const PORT = process.env.PORT || 5001;
