@@ -1,0 +1,36 @@
+.
+|-- backend
+|   |-- src
+|   |-- Dockerfile
+|   |-- package-lock.json
+|   |-- package.json
+|   `-- server.js
+|-- frontend
+|   |-- public
+|   |-- src
+|   |-- Dockerfile
+|   |-- package-lock.json
+|   `-- package.json
+|-- CONTRIBUTING.md
+|-- DEPLOYMENT.md
+|-- DOCS_INDEX.md
+|-- HARDCODED_DATA_SOLUTION.md
+|-- PRODUCTION_CHECKLIST.md
+|-- PROJECT_STRUCTURE.txt
+|-- QUICKSTART.md
+|-- README.md
+|-- ROUTING_FIXES_README.md
+|-- START_HERE.md
+|-- WEB_PROJECT_SETUP.md
+|-- build.sh
+|-- check-setup.sh
+|-- docker-compose.yml
+|-- ecosystem.config.js
+|-- nginx.conf.template
+|-- package-lock.json
+|-- package.json
+|-- start-servers.bat
+|-- start.sh
+`-- verify-setup.sh
+
+6 directories, 28 files
